@@ -1,0 +1,49 @@
+.link-list {
+  $width: $link-list-width;
+
+  position: fixed;
+  top: 0;
+  left: -$width;
+  height: 100%;
+  width: $width;
+  overflow: scroll;
+  background-color: $link-list-background-color;
+  border-right: 1px solid $border-color;
+  box-shadow: 0 0 10px $shadow-color;
+  transition: ui-ready-transition(left);
+
+  &.ready { left: 0; }
+
+  section.day {
+    h1 {
+      font-size: 24px;
+      line-height: 1;
+      margin: 0;
+      color: $secondary-text-color;
+      padding: 0 $margin;
+      margin-top: $margin;
+      margin-bottom: $margin/3;
+      font-weight: 200;
+    }
+    div.link {
+      padding: $margin/3 $margin;
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      cursor: pointer;
+      &:hover { background-color: #fafafa; }
+      &.selected { background-color: white; }
+      a.link {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      a.user {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        img { height: 100%; width: 100%; }
+        + a.user { margin-left: 5px; }
+      }
+    }
+  }
+}

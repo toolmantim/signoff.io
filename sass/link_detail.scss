@@ -1,0 +1,26 @@
+.link-detail {
+  margin-left: $link-list-width;
+  padding: $margin $margin*1.5 $margin*1.5 $margin*2;
+  h1 {
+    font-size: 32px;
+    margin: $margin/3 0;
+    a { font-weight: 200; }
+  }
+  p.url {
+    margin: $margin/3 0;
+    font-size: 16px;
+    a {
+      color: $secondary-text-color; font-weight: 200;
+      &:hover { text-decoration: underline; }
+    }
+  }
+  .summary {
+    font-size: 18px;
+    max-width: 40em;
+  }
+  .tweets {
+    blockquote.twitter-tweet {
+      display: none;
+    }
+  }
+}

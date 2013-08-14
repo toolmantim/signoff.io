@@ -1,0 +1,12 @@
+{
+  "name": "signoff",
+  "devDependencies": {
+    "wach": "x",
+    "http-server": "x",
+    "bower": "x",
+    "node-sass": "x",
+    "autoprefixer": "x",
+    "csslint": "x",
+    "jshint": "x"
+  }
+}

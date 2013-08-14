@@ -1,0 +1,29 @@
+html.home {
+  body {
+    background: #0d1807 url(/images/home-background.jpg) no-repeat;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    box-pack:center;
+    box-align:center;
+    a {
+      display: block;
+      position: relative;
+      img.logo {
+        width: 250px;
+        position: relative;
+      }
+      &:active {
+        transform: scale(.95);
+      }
+    }
+    p {
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-top: $margin;
+      text-shadow: 0 0 3px rgba(0,50,0,.6);
+    }
+  }
+}

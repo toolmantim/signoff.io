@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Signoff">
+  <head>
+    <meta charset="utf-8">
+    <title>Signoff — Life’s too short to read every tweet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="signoff.css" rel="stylesheet" type="text/stylesheet">
+    <script src="signoff.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js"></script>
+  </head>
+  <body>
+
+    <nav>
+      <header ng-controller="AppCtrl">
+      </header>
+      <div ng-controller="LinkListCtrl" ng-class="{ready:list.all}" class="link-list">
+        <section class="day" ng-repeat="day in list.all">
+          <h1>{{day.date | date:'EEEE, MMMM&nbsp;d'}}</h1>
+           <div class="link" ng-repeat="link in day.links" ng-click="list.current = link; $event.preventDefault()" ng-class="{selected:link==list.current}">
+            <a class="link" href="/{{link.url}}">{{link.title}}</a>
+            <div class="users">
+              <a ng-repeat="tweet in link.tweets" class="user" href="/{{link.url}}#tweet-{{tweet.id}}"><img ng-src="{{tweet.user.profile_image_url}}" title="{{tweet.text | withoutUrl:link.url}}"/></a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </nav>
+
+     <article ng-controller="LinkDetailCtrl" ng-class="{ready:list.current}" class="link-detail">
+      <h1><a href="{{list.current.url}}">{{list.current.title}}</a></h1>
+      <p class="url"><a href="{{list.current.url}}">★ {{list.current.url}}</a></p>
+      <div class="summary">
+        <p>{{list.current.summary}}</p>
+      </div>
+      <div class="tweets">
+        <blockquote class="twitter-tweet" ng-repeat="tweet in list.current.tweets" data-dnt="true" data-cards="hidden">
+          <p class="text">{{tweet.text | withoutUrl:list.current.url}}</p>
+          <p>
+            <span class="by">{{tweet.user.name}} @{{tweet.user.screen_name}}</span>
+            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">August 13, 2013</a>
+          </p>
+        </blockquote>
+      </div>
+
+    </article>
+
+  </body>
+</html>

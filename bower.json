@@ -1,0 +1,6 @@
+{
+  "name": "signoff",
+  "dependencies": {
+    "angular": "x"
+  }
+}
