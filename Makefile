@@ -24,7 +24,7 @@ watch:
 	$(BIN)/wach -o "$(JS)/**/*,$(SASS)/**/*" make all --quiet
 
 server:
-	$(BIN)/http-server public -e html
+	$(BIN)/http-server public -p 8080 -e html -c-1
 
 $(DIST)/$(APP).css: $(BUILD)/$(APP).css
 	cp $(BUILD)/$(APP).css $(DIST)/$(APP).css

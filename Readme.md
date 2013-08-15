@@ -1,4 +1,4 @@
-# Signoff
+# signoff.io
 
 Turn your twitter feed into a link feed.
 
@@ -16,7 +16,7 @@ Build the files:
 
     make
 
-Boot up webserver for public/:
+Serve up public via http:
 
     make server
 
