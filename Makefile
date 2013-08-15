@@ -4,7 +4,6 @@ APP=signoff
 # Directories
 BIN=node_modules/.bin
 BOWER=bower_components
-BUILD=build
 PUBLIC=public
 
 # Source directories
@@ -21,19 +20,15 @@ IMAGE_SOURCES=$(wildcard $(IMAGES)/**/*)
 CSS_TARGET=$(PUBLIC)/$(APP).css
 JS_TARGET=$(PUBLIC)/$(APP).js
 
+# Always run these tasks, regardless of file existence or mtime
+.PHONY : all clean watch server css js optimise_images $(IMAGE_SOURCES)
 
-.PHONY : all css js optimise_images $(IMAGE_SOURCES) clean watch server
+# General
 
 all: css js
 
-css: $(CSS_TARGET)
-
-js: $(JS_TARGET)
-
-optimise_images: $(IMAGE_SOURCES)
-
 clean:
-	rm -rf $(BUILD) $(CSS_TARGET) $(JS_TARGET)
+	rm -rf $(CSS_TARGET) $(JS_TARGET)
 
 watch:
 	$(BIN)/wach -o "$(SASS)/**/*,$(JS)/**/*" make all --quiet
@@ -41,31 +36,26 @@ watch:
 server:
 	$(BIN)/http-server PUBLIC -p 8080 -e html -c-1
 
-# Pre-reqs
-
-$(BUILD):
-	mkdir $(BUILD)
-
 # CSS
 
-$(CSS_TARGET): $(BUILD)/$(APP).css
-	cp $(BUILD)/$(APP).css $(PUBLIC)/$(APP).css
+css: $(CSS_TARGET)
 
-$(BUILD)/$(APP).css: $(SASS_SOURCES) | $(BUILD)
-	$(BIN)/node-sass $(SASS)/$(APP).scss $(BUILD)/$(APP).css
-	$(BIN)/autoprefixer --browsers "> 1%" $(BUILD)/$(APP).css
-	$(BIN)/csslint $(BUILD)/$(APP).css --format=compact
+$(CSS_TARGET): $(SASS_SOURCES)
+	$(BIN)/node-sass $(SASS)/$(APP).scss $(CSS_TARGET)
+	$(BIN)/autoprefixer --browsers "> 1%" $(CSS_TARGET)
+	$(BIN)/csslint $(CSS_TARGET) --format=compact
 
 # JS
 
-$(JS_TARGET): $(BUILD)/$(APP).js
-	cp $(BUILD)/$(APP).js $(PUBLIC)/$(APP).js
+js: $(JS_TARGET)
 
-$(BUILD)/$(APP).js: $(JS_SOURCES) | $(BUILD)
+$(JS_TARGET): $(JS_SOURCES)
 	$(BIN)/jshint $(JS_SOURCES)
-	cat $(BOWER)/angular/angular.js $(JS)/$(APP).js > $(BUILD)/$(APP).js
+	cat $(BOWER)/angular/angular.js $(JS)/$(APP).js > $(JS_TARGET)
 
 # Images
+
+optimise_images: $(IMAGE_SOURCES)
 
 $(wildcard $(IMAGES)/**/*.png):
 	$(BIN)/optipng-bin -o 5 -quiet $@
