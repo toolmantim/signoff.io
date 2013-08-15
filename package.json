@@ -7,6 +7,8 @@
     "node-sass": "x",
     "autoprefixer": "x",
     "csslint": "x",
-    "jshint": "x"
+    "jshint": "x",
+    "optipng-bin": "x",
+    "jpegtran-bin": "x"
   }
 }
